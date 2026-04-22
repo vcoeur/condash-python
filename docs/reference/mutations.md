@@ -55,7 +55,7 @@ Body (`application/json`):
 }
 ```
 
-Server-side rules (re-validated in [`create_item`](https://github.com/vcoeur/condash/blob/main/src/condash/mutations.py) — client input is never trusted):
+Server-side rules (re-validated in [`create_item`](https://github.com/vcoeur/condash-python/blob/main/src/condash/mutations.py) — client input is never trusted):
 
 - `title` required.
 - `kind` ∈ `{project, incident, document}`.
@@ -86,7 +86,7 @@ Filename validation regexes are narrow on purpose:
 - Notes: `[\w.-]+` plus a single extension. No spaces, no parentheses.
 - Uploads: `[\w. \-()]+\.[A-Za-z0-9]+` — permissive enough for camera exports and scanned PDFs.
 
-See [`mutations.py`](https://github.com/vcoeur/condash/blob/main/src/condash/mutations.py) for the exact regexes.
+See [`mutations.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/mutations.py) for the exact regexes.
 
 ## Config edits
 
@@ -111,7 +111,7 @@ The `/open*` family launches an external process. These **do not** write to the 
 | Open a folder | `POST /open-folder` | Must match `projects/YYYY-MM/YYYY-MM-DD-slug/` | OS default file manager |
 | Open a URL | `POST /open-external` | `http://` or `https://` only | User's default browser |
 
-Paths outside the configured sandbox are rejected **before the shell sees them**. The regexes live in [`paths.py`](https://github.com/vcoeur/condash/blob/main/src/condash/paths.py); the URL check in [`openers.py::_is_external_url`](https://github.com/vcoeur/condash/blob/main/src/condash/openers.py).
+Paths outside the configured sandbox are rejected **before the shell sees them**. The regexes live in [`paths.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/paths.py); the URL check in [`openers.py::_is_external_url`](https://github.com/vcoeur/condash-python/blob/main/src/condash/openers.py).
 
 The one exception is the embedded terminal (`WS /ws/term`): its `?cwd=` query parameter goes through the same `_validate_open_path` check, so a forked shell can only start inside `workspace_path` or `worktrees_path`.
 

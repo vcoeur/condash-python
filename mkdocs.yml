@@ -1,11 +1,11 @@
-site_name: condash
-site_url: https://condash.vcoeur.com/
-site_description: Standalone desktop dashboard for markdown-based projects, incidents, and documents — live-rendered from the files you edit by hand.
+site_name: condash-python
+site_url: https://condash-python.vcoeur.com/
+site_description: Standalone desktop dashboard for markdown-based projects, incidents, and documents — live-rendered from the files you edit by hand. NiceGUI + FastAPI + pywebview build; retired in favour of the Rust/Tauri successor at condash.vcoeur.com.
 site_author: Alice Voland
 copyright: 'Developed by Alice Voland &middot; <a href="https://vcoeur.com">vcoeur.com</a> &middot; <a href="/legal/">Legal</a>'
 
-repo_url: https://github.com/vcoeur/condash
-repo_name: vcoeur/condash
+repo_url: https://github.com/vcoeur/condash-python
+repo_name: vcoeur/condash-python
 edit_uri: edit/main/docs/
 
 theme:

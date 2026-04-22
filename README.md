@@ -28,7 +28,7 @@ To skip the native window entirely, set `native = false` in your config and open
 ### Development from a source checkout
 
 ```bash
-git clone https://github.com/vcoeur/condash.git
+git clone https://github.com/vcoeur/condash-python.git
 cd condash
 uv sync --all-extras
 make frontend               # bundle assets/src/{js,css}/ → assets/dist/ (esbuild via npx)
@@ -113,12 +113,12 @@ A minimal example [`SKILL.md`](SKILL.md) ships at the repo root — drop it into
 
 ## Status
 
-Version **0.14.1**. Linux-first but tested on all three desktop platforms. The docs site at [condash.vcoeur.com](https://condash.vcoeur.com/) tracks current behaviour; the [`CHANGELOG`](https://github.com/vcoeur/condash/commits/main) on GitHub has the release-by-release history.
+Version **0.14.1**. Linux-first but tested on all three desktop platforms. The docs site at [condash.vcoeur.com](https://condash.vcoeur.com/) tracks current behaviour; the [`CHANGELOG`](https://github.com/vcoeur/condash-python/commits/main) on GitHub has the release-by-release history.
 
 ## Links
 
 - Documentation: **[condash.vcoeur.com](https://condash.vcoeur.com/)**
-- Source: **[github.com/vcoeur/condash](https://github.com/vcoeur/condash)**
+- Source: **[github.com/vcoeur/condash](https://github.com/vcoeur/condash-python)**
 - PyPI: **[pypi.org/project/condash](https://pypi.org/project/condash/)**
 
 ## License

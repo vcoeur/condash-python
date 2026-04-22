@@ -28,13 +28,13 @@ If you see `command not found`, run `pipx ensurepath` and reopen the shell.
 
 ## 2. Fetch the demo tree
 
-The condash repo ships a realistic demo tree at [`examples/conception-demo/`](https://github.com/vcoeur/condash/tree/main/examples/conception-demo). It has nine items, all six statuses, a knowledge tree, and two deliverable PDFs — enough for every feature in the rest of the tutorials to have something to act on.
+The condash repo ships a realistic demo tree at [`examples/conception-demo/`](https://github.com/vcoeur/condash-python/tree/main/examples/conception-demo). It has nine items, all six statuses, a knowledge tree, and two deliverable PDFs — enough for every feature in the rest of the tutorials to have something to act on.
 
 Copy it into a working location:
 
 ```bash
 mkdir -p ~/conception-demo
-curl -fsSL https://codeload.github.com/vcoeur/condash/tar.gz/main \
+curl -fsSL https://codeload.github.com/vcoeur/condash-python/tar.gz/main \
   | tar -xz --strip-components=2 -C ~/conception-demo \
       condash-main/examples/conception-demo
 ```

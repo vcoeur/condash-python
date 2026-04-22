@@ -11,7 +11,7 @@ This page is for readers who want to understand the moving parts — because the
 
 ### Discovery
 
-`collect_items()` in [`parser.py`](https://github.com/vcoeur/condash/blob/main/src/condash/parser.py) performs a single glob:
+`collect_items()` in [`parser.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/parser.py) performs a single glob:
 
 ```python
 ctx.base_dir / "projects" glob "*/*/README.md"
@@ -68,7 +68,7 @@ The key design choice is what each hash **doesn't** include:
 - `projects/<priority>/<slug>` deliberately excludes the priority. Dragging a card across columns re-keys the id (new path), not re-hashes the card content — so the DOM can detach-and-reinsert, but the card's innerHTML survives.
 - The whole-tab hash covers the `(priority, slug)` set so that card adds / removes / moves do bubble up. A card content edit doesn't — only its card hash changes, only its `/fragment` is refetched.
 
-See [`compute_project_node_fingerprints`](https://github.com/vcoeur/condash/blob/main/src/condash/parser.py) for the computation and [HTTP API](../reference/http-api.md#change-polling) for the route shape.
+See [`compute_project_node_fingerprints`](https://github.com/vcoeur/condash-python/blob/main/src/condash/parser.py) for the computation and [HTTP API](../reference/http-api.md#change-polling) for the route shape.
 
 Hashes are MD5 truncated to 16 hex chars. MD5 is fine here — this is an equality check, not a security primitive, and the 64-bit output is plenty to avoid collisions on trees of a few thousand items.
 
@@ -110,7 +110,7 @@ So we split on **what it describes**, not on **how it's edited**. The TOML is ma
 
 ### Merge order
 
-At load time in [`config.py::load`](https://github.com/vcoeur/condash/blob/main/src/condash/config.py):
+At load time in [`config.py::load`](https://github.com/vcoeur/condash-python/blob/main/src/condash/config.py):
 
 1. Parse `~/.config/condash/config.toml` → get a `CondashConfig` with all fields.
 2. If `conception_path` resolves and `<conception_path>/config/repositories.yml` exists, overlay its fields (`workspace_path`, `worktrees_path`, `repositories`, `open_with`). This **replaces** whatever was in TOML for those keys.
@@ -164,7 +164,7 @@ See [multi-machine setup](../guides/multi-machine.md) for how to structure a two
 
 By default (`native = true`) condash starts an HTTP server bound to a free local port **and** opens a `pywebview` desktop window pointed at `http://127.0.0.1:<port>`. The window is a real OS-native WebView:
 
-- **Linux** — `pywebview` prefers GTK/WebKit if `python3-gi` is installed system-wide, falling back to Qt (`PyQt6` + `PyQt6-WebEngine`) which is a hard runtime dependency. We force `_ng_app.native.start_args["gui"] = "qt"` in [`app.py::run`](https://github.com/vcoeur/condash/blob/main/src/condash/app.py) so that on systems without GTK bindings we go straight to Qt instead of printing a GTK traceback.
+- **Linux** — `pywebview` prefers GTK/WebKit if `python3-gi` is installed system-wide, falling back to Qt (`PyQt6` + `PyQt6-WebEngine`) which is a hard runtime dependency. We force `_ng_app.native.start_args["gui"] = "qt"` in [`app.py::run`](https://github.com/vcoeur/condash-python/blob/main/src/condash/app.py) so that on systems without GTK bindings we go straight to Qt instead of printing a GTK traceback.
 - **macOS** — Cocoa/WebKit via `pyobjc`.
 - **Windows** — Edge WebView2 via `pywebview[cef]` (or the system WebView2 runtime).
 
@@ -193,7 +193,7 @@ The dashboard's own JavaScript and CSS used to live as a single ~8 000-line `das
 - **Source** lives under `src/condash/assets/src/{js,css}/` — one CSS module per concern (`themes.css`, `cards.css`, `modals.css`, `terminal.css`, `notes.css`) and, for JavaScript, `dashboard-main.js` (the bulk of the behaviour, still a single module for now — see below), plus `markdown-preview.js` and `cm6-mount.js` for the two surfaces that need the CodeMirror + PDF.js bindings isolated. `entry.js` is the esbuild entrypoint.
 - **Build step** is `make frontend`. It invokes esbuild transiently via `npx --yes esbuild@<pinned>` — **no `node_modules/` is ever created**; the tool runs, writes its output, and exits. Output lands in `src/condash/assets/dist/bundle.{js,css}`.
 - **Committed output.** The built `dist/bundle.{js,css}` files are **committed** to git, so `pip install condash` / `uv sync` work on a machine with no Node toolchain. `make frontend` is only needed when you edit a source file under `assets/src/`.
-- **Serving.** `/assets/dist/{rel_path}` is a path-validated static route in [`routes/static.py`](https://github.com/vcoeur/condash/blob/main/src/condash/routes/static.py), same traversal-hardened pattern as `/vendor/<name>/`.
+- **Serving.** `/assets/dist/{rel_path}` is a path-validated static route in [`routes/static.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/routes/static.py), same traversal-hardened pattern as `/vendor/<name>/`.
 - **Shell discipline.** `dashboard.html` is ~440 LOC and structural-only. `tests/test_dashboard_shell_size.py` caps the line count and fails the suite if a new `<script>` or `<style>` block is re-introduced — a guard against drift back to the old monolithic file.
 
 Why esbuild and not Vite: no dev server is needed (FastAPI already serves the static bundle), the split didn't buy its cost back in HMR, and the smaller dep surface matters for a tool that's sometimes installed in sandboxed environments.
@@ -206,7 +206,7 @@ External client-side dependencies are **vendored into the package**, not fetched
 
 ### PDF.js
 
-In-modal PDF previews use Mozilla's PDF.js. The library lives under `src/condash/assets/vendor/pdfjs/` and is served by the `/vendor/pdfjs/{rel_path:path}` route in [`app.py`](https://github.com/vcoeur/condash/blob/main/src/condash/app.py).
+In-modal PDF previews use Mozilla's PDF.js. The library lives under `src/condash/assets/vendor/pdfjs/` and is served by the `/vendor/pdfjs/{rel_path:path}` route in [`app.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/app.py).
 
 Why not the webview's built-in PDF renderer: QtWebEngine ships with `PdfViewerEnabled=false` by default, and even turning it on gives you a fixed viewer UI we can't theme. Chromium / Edge have native PDF viewers but again, no theming hooks.
 
@@ -233,9 +233,9 @@ Both served behind path-validating `/vendor/<name>/{rel_path:path}` routes that 
 
 None of this is novel. The interesting parts are what we **didn't** build: no cache, no watcher, no schema, no lock files, no auth, no sync. The dashboard is a thin FastAPI + NiceGUI layer over a directory of Markdown files, and the design is almost entirely about keeping it that way as features accumulate.
 
-If you want to contribute or poke deeper, the [source on GitHub](https://github.com/vcoeur/condash) is ~5.9k lines of Python. The modules most worth reading first:
+If you want to contribute or poke deeper, the [source on GitHub](https://github.com/vcoeur/condash-python) is ~5.9k lines of Python. The modules most worth reading first:
 
-- [`parser.py`](https://github.com/vcoeur/condash/blob/main/src/condash/parser.py) — the tree walker and the fingerprint computation.
-- [`config.py`](https://github.com/vcoeur/condash/blob/main/src/condash/config.py) — the three-file split and its loader / saver pair.
-- [`app.py`](https://github.com/vcoeur/condash/blob/main/src/condash/app.py) — every HTTP route + the PTY session registry.
-- [`mutations.py`](https://github.com/vcoeur/condash/blob/main/src/condash/mutations.py) — the write surface; compare against the [mutation model reference](../reference/mutations.md) for overlap.
+- [`parser.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/parser.py) — the tree walker and the fingerprint computation.
+- [`config.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/config.py) — the three-file split and its loader / saver pair.
+- [`app.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/app.py) — every HTTP route + the PTY session registry.
+- [`mutations.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/mutations.py) — the write surface; compare against the [mutation model reference](../reference/mutations.md) for overlap.
