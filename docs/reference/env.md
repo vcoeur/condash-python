@@ -19,7 +19,7 @@ description: The short list of environment variables condash reads.
 
 ## `CONDASH_LOG_LEVEL`
 
-The only condash-specific variable. Case-insensitive; read once at startup in [`cli.py::main`](https://github.com/vcoeur/condash/blob/main/src/condash/cli.py).
+The only condash-specific variable. Case-insensitive; read once at startup in [`cli.py::main`](https://github.com/vcoeur/condash-python/blob/main/src/condash/cli.py).
 
 ```bash
 CONDASH_LOG_LEVEL=DEBUG condash --no-native
@@ -38,8 +38,8 @@ Use `DEBUG` when:
 condash honours the three `XDG_*` directory variables for users on non-default setups (e.g. flatpak sandboxes, opinionated dotfiles).
 
 - `XDG_CONFIG_HOME` — base directory for `<XDG_CONFIG_HOME>/condash/config.toml`.
-- `XDG_PICTURES_DIR` — used by [`config.py::default_screenshot_dir`](https://github.com/vcoeur/condash/blob/main/src/condash/config.py) when `terminal.screenshot_dir` is not configured.
-- `XDG_DATA_HOME` — base directory for `<XDG_DATA_HOME>/applications/condash.desktop` and the icon, via [`desktop.py`](https://github.com/vcoeur/condash/blob/main/src/condash/desktop.py).
+- `XDG_PICTURES_DIR` — used by [`config.py::default_screenshot_dir`](https://github.com/vcoeur/condash-python/blob/main/src/condash/config.py) when `terminal.screenshot_dir` is not configured.
+- `XDG_DATA_HOME` — base directory for `<XDG_DATA_HOME>/applications/condash.desktop` and the icon, via [`desktop.py`](https://github.com/vcoeur/condash-python/blob/main/src/condash/desktop.py).
 
 ## Editor and shell
 

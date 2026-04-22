@@ -25,7 +25,7 @@ Field names are case-insensitive; values are trimmed. Order inside the header bl
 
 ## Header parsing
 
-The parser ([`parser.py::parse_readme`](https://github.com/vcoeur/condash/blob/main/src/condash/parser.py)) scans every line between the title and the first `##` heading. A line is treated as metadata if it matches `**<Key>**: <value>`. The first blank line is not a terminator — only the first `##` heading is.
+The parser ([`parser.py::parse_readme`](https://github.com/vcoeur/condash-python/blob/main/src/condash/parser.py)) scans every line between the title and the first `##` heading. A line is treated as metadata if it matches `**<Key>**: <value>`. The first blank line is not a terminator — only the first `##` heading is.
 
 ```markdown
 # Helio benchmark harness

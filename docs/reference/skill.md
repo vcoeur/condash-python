@@ -7,7 +7,7 @@ description: Reference for the shipped /conception-items Claude Code skill — a
 
 ## At a glance
 
-`condash` renders items but does not create them. The shipped **[`/conception-items`](https://github.com/vcoeur/condash/tree/main/examples/skills/conception-items)** Claude Code skill covers the creation + update + close lifecycle by editing files directly. It has **no knowledge of the condash CLI or HTTP server** — the two tools meet at the filesystem and nowhere else.
+`condash` renders items but does not create them. The shipped **[`/conception-items`](https://github.com/vcoeur/condash-python/tree/main/examples/skills/conception-items)** Claude Code skill covers the creation + update + close lifecycle by editing files directly. It has **no knowledge of the condash CLI or HTTP server** — the two tools meet at the filesystem and nowhere else.
 
 For the learn-by-doing walkthrough, see [tutorials/first-project](../tutorials/first-project.md). For the extension patterns, see [guides/skill-extensions](../guides/skill-extensions.md).
 
@@ -27,7 +27,7 @@ The skill deliberately does **not** delete items, does not rename directories, a
 
 ## Install
 
-The skill file ships in the repo at [`examples/skills/conception-items/SKILL.md`](https://github.com/vcoeur/condash/tree/main/examples/skills/conception-items). Copy it to one of the Claude Code skill locations:
+The skill file ships in the repo at [`examples/skills/conception-items/SKILL.md`](https://github.com/vcoeur/condash-python/tree/main/examples/skills/conception-items). Copy it to one of the Claude Code skill locations:
 
 ```bash
 # Global — available in every session

@@ -67,7 +67,7 @@ For mutation semantics (what each route writes), see [Mutation model](mutations.
 
 `fingerprint` is the 16-hex MD5 of the whole-tree repr; a change at any level flips it. `nodes` is a flat map that lets the client decide **which** subtree changed and re-fetch just that — preventing full-page flicker on a single step toggle. See [internals](../explanation/internals.md#parser-and-fingerprints) for how the hashes are computed.
 
-`/search-history` returns a list of per-item hits ranked by [`search.py::search_items`](https://github.com/vcoeur/condash/blob/main/src/condash/search.py). Empty `q` returns `[]`.
+`/search-history` returns a list of per-item hits ranked by [`search.py::search_items`](https://github.com/vcoeur/condash-python/blob/main/src/condash/search.py). Empty `q` returns `[]`.
 
 ## Notes
 
